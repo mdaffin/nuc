@@ -32,7 +32,8 @@ impl FromStr for Number {
     type Err = ParseNumberError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Ok(match s {
+        let s = s.replace("_", "");
+        Ok(match &s {
             s if s.starts_with("0x") => {
                 match s.len() {
                     0...3 => Number::U4(u8::from_str_radix(&s[2..], 16)?),
